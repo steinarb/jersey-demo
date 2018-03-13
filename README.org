@@ -1,0 +1,45 @@
+* A test for overlapping whiteboard servlets
+
+This is a test application created to test how the [[http://ops4j.github.io/pax/web/SNAPSHOT/User-Guide.html#whiteboard-extender][Pax Web Whiteboard Extender]] handles having the GUI on root path, with a webapi on a subpart.
+
+The webapp servlet will install on /overlaptest/ and the REST service servlet will install on /overlaptest/api/testservice
+
+** Status
+
+[[https://travis-ci.org/steinarb/whiteboard-web-and-api-karaf-demo][file:https://travis-ci.org/steinarb/whiteboard-web-and-api-karaf-demo.svg?branch=master]] [[https://coveralls.io/r/steinarb/whiteboard-web-and-api-karaf-demo][file:https://coveralls.io/repos/steinarb/whiteboard-web-and-api-karaf-demo/badge.svg]] [[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos.whiteboardwebapi/whiteboard-web-and-api-karaf-demo][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos.whiteboardwebapi/whiteboard-web-and-api-karaf-demo/badge.svg]]
+
+
+*** SonarCloud
+
+[[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo&metric=ncloc#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo&metric=bugs#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.whiteboardwebapi%3Awhiteboard-web-and-api-karaf-demo&metric=coverage#.svg]]
+
+
+** How to install
+
+This is how to build and install the servlet:
+ 1. First [[https://karaf.apache.org/manual/latest/quick-start.html#_quick_start][download and install apache karaf]]
+ 2. In the apache karaf command line, install the features that pulls in the servlets with their dependencies
+    #+BEGIN_EXAMPLE
+      feature:repo-add mvn:no.priv.bang.demos.whiteboardwebapi/whiteboard-web-and-api-karaf-demo/LATEST/xml/features
+      feature:install webapi
+      feature:install webgui
+    #+END_EXAMPLE
+ 3. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/hello for a karaf server started locally, with default settings
+
+** To uninstall the counter servlet from karaf
+
+This is how to uninstall the servlet from karaf:
+ 1. At the karaf console prompt, give the following command:
+    #+BEGIN_EXAMPLE
+      feature:uninstall webapi
+    #+END_EXAMPLE
+
+This will cause repeated clicks on the "Increment" button to result in 405 responses, because the webgui servlet can't satisfy the path from its classpath.
+
+Reinstalling the webapi feature will cause the count to start again from 0.
+
+** License
+
+This software project is licensed under Apache License v. 2.
+
+See the LICENSE file for details.
