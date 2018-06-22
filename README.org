@@ -1,6 +1,6 @@
 * A test for overlapping whiteboard servlets
 
-This is a test application created to test how the [[http://ops4j.github.io/pax/web/SNAPSHOT/User-Guide.html#whiteboard-extender][Pax Web Whiteboard Extender]] handles having the GUI on root path, with a webapi on a subpart.
+This is a test application created to test how the [[http://ops4j.github.io/pax/web/SNAPSHOT/User-Guide.html#whiteboard-extender][Pax Web Whiteboard Extender]] handles overapping paths from two servlets exposed by two different DS components.
 
 The webapp servlet will install on /overlaptest/ and the REST service servlet will install on /overlaptest/api/testservice
 
@@ -24,7 +24,7 @@ This is how to build and install the servlet:
       feature:install webapi
       feature:install webgui
     #+END_EXAMPLE
- 3. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/hello for a karaf server started locally, with default settings
+ 3. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/overlaptest for a karaf server started locally, with default settings
 
 ** To uninstall the counter servlet from karaf
 
@@ -34,7 +34,7 @@ This is how to uninstall the servlet from karaf:
       feature:uninstall webapi
     #+END_EXAMPLE
 
-This will cause repeated clicks on the "Increment" button to result in 405 responses, because the webgui servlet can't satisfy the path from its classpath.
+This will cause repeated clicks on the "Increment" button to result in 405 responses, because the webgui servlet now intercepts the requests, but that servlet doesn't support the POST requests used to increment the counter.
 
 Reinstalling the webapi feature will cause the count to start again from 0.
 
