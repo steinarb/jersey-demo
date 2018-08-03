@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.whiteboardwebapi.webapi.mocks;
+package no.priv.bang.demos.jerseyinkaraf.webapi.mocks;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -87,6 +87,13 @@ public abstract class MockHttpServletResponse implements HttpServletResponse {
     @Override
     public void setCharacterEncoding(String charset) {
         encoding = charset;
+    }
+
+    @Override
+    public void addHeader(String headerName, String headerValue) {
+        if ("Content-Type".equals(headerName)) {
+            contenttype = headerValue;
+        }
     }
 
     @Override

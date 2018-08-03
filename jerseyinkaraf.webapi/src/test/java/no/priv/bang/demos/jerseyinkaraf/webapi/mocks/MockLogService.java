@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.whiteboardwebapi.webapi.mocks;
+package no.priv.bang.demos.jerseyinkaraf.webapi.mocks;
 
 import java.util.ArrayList;
 import java.util.List;

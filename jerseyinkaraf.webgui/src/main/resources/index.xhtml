@@ -4,7 +4,7 @@
         <script type="">
         function incrementCounter() {
         	var xhttp = new XMLHttpRequest();
-        	xhttp.open("POST", "/overlap/api/counter", false);
+        	xhttp.open("POST", "/jerseyinkaraf/api/counter", false);
             xhttp.send(null);
             var response = JSON.parse(xhttp.responseText);
             console.log("response.value: " + JSON.stringify(response));

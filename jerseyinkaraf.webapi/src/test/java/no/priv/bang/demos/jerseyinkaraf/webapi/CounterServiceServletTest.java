@@ -13,29 +13,36 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.whiteboardwebapi.webapi;
+package no.priv.bang.demos.jerseyinkaraf.webapi;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Collections;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.InternalServerErrorException;
 
+import org.glassfish.jersey.server.ServerProperties;
 import org.junit.Test;
-import org.mockito.Matchers;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import no.priv.bang.demos.whiteboardwebapi.webapi.Count;
-import no.priv.bang.demos.whiteboardwebapi.webapi.CounterServiceServlet;
-import no.priv.bang.demos.whiteboardwebapi.webapi.mocks.MockHttpServletResponse;
-import no.priv.bang.demos.whiteboardwebapi.webapi.mocks.MockLogService;
+import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
+import no.priv.bang.demos.jerseyinkaraf.servicedef.beans.Count;
+import no.priv.bang.demos.jerseyinkaraf.services.CounterService;
+import no.priv.bang.demos.jerseyinkaraf.webapi.CounterServiceServlet;
+import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockHttpServletResponse;
+import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockLogService;
 
 public class CounterServiceServletTest {
     static final ObjectMapper mapper = new ObjectMapper();
@@ -44,17 +51,29 @@ public class CounterServiceServletTest {
     public void testDoGet() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getProtocol()).thenReturn("HTTP/1.1");
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
+        when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
+        when(request.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
+        when(request.getContextPath()).thenReturn("");
+        when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
+        when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
 
         CounterServiceServlet servlet = new CounterServiceServlet();
         servlet.setLogservice(logservice);
+        Counter counterService = mock(Counter.class);
+        when(counterService.currentValue()).thenReturn(new Count());
+        servlet.setCounter(counterService);
+
+        // When the servlet is activated it will be plugged into the http whiteboard and configured
+        ServletConfig config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
+        servlet.init(config);
 
         servlet.service(request, response);
 
-        assertEquals("application/json", response.getContentType());
         assertEquals(200, response.getStatus());
+        assertEquals("application/json", response.getContentType());
         ByteArrayOutputStream responseBody = response.getOutput();
         assertThat(response.getOutput().size()).isGreaterThan(0);
         Count counter = mapper.readValue(responseBody.toByteArray(), Count.class);
@@ -66,16 +85,30 @@ public class CounterServiceServletTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
+        when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
+        when(request.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
+        when(request.getContextPath()).thenReturn("");
+        when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
+        when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
 
         CounterServiceServlet servlet = new CounterServiceServlet();
         servlet.setLogservice(logservice);
+        Counter counterService = new CounterService();
+        servlet.setCounter(counterService);
+
+        // When the servlet is activated it will be plugged into the http whiteboard and configured
+        ServletConfig config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
+        servlet.init(config);
 
         // Increment the counter twice
         HttpServletRequest postToIncrementCounter = mock(HttpServletRequest.class);
         when(postToIncrementCounter.getMethod()).thenReturn("POST");
-        when(postToIncrementCounter.getRequestURI()).thenReturn("http://localhost:8181/hello");
+        when(postToIncrementCounter.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
+        when(postToIncrementCounter.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
+        when(postToIncrementCounter.getContextPath()).thenReturn("");
+        when(postToIncrementCounter.getServletPath()).thenReturn("/jerseyinkaraf/api");
+        when(postToIncrementCounter.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
         HttpServletResponse postResponse = mock(HttpServletResponse.class);
         when(postResponse.getWriter()).thenReturn(mock(PrintWriter.class));
         servlet.service(postToIncrementCounter, postResponse);
@@ -96,18 +129,38 @@ public class CounterServiceServletTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
+        when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
+        when(request.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
+        when(request.getContextPath()).thenReturn("");
+        when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
+        when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
-        PrintWriter writer = mock(PrintWriter.class);
-        doThrow(IOException.class).when(writer).write(Matchers.<char[]>any(), anyInt(), anyInt());
-        when(response.getWriter()).thenReturn(writer);
 
         CounterServiceServlet servlet = new CounterServiceServlet();
         servlet.setLogservice(logservice);
+        // Create a mock Counter service that causes the internal server error
+        Counter counterService = mock(Counter.class);
+        InternalServerErrorException exception = new InternalServerErrorException();
+        when(counterService.currentValue()).thenThrow(exception);
+        servlet.setCounter(counterService);
+
+        // When the servlet is activated it will be plugged into the http whiteboard and configured
+        ServletConfig config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
+        servlet.init(config);
 
         servlet.service(request, response);
 
         assertEquals(500, response.getStatus());
         assertEquals(0, response.getOutput().size());
+    }
+
+    private ServletConfig createServletConfigWithApplicationAndPackagenameForJerseyResources() {
+        ServletConfig config = mock(ServletConfig.class);
+        when(config.getInitParameterNames()).thenReturn(Collections.enumeration(Arrays.asList(ServerProperties.PROVIDER_PACKAGES)));
+        when(config.getInitParameter(eq(ServerProperties.PROVIDER_PACKAGES))).thenReturn("no.priv.bang.demos.jerseyinkaraf.webapi.resources");
+        ServletContext servletContext = mock(ServletContext.class);
+        when(config.getServletContext()).thenReturn(servletContext);
+        when(servletContext.getAttributeNames()).thenReturn(Collections.emptyEnumeration());
+        return config;
     }
 }

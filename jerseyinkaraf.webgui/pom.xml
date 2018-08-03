@@ -14,15 +14,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>webgui</artifactId>
+    <artifactId>jerseyinkaraf.webgui</artifactId>
     <parent>
-        <groupId>no.priv.bang.demos.whiteboardwebapi</groupId>
-        <artifactId>whiteboard-web-and-api-karaf-demo</artifactId>
+        <groupId>no.priv.bang.demos.jerseyinkaraf</groupId>
+        <artifactId>jerseyinkaraf</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Whiteboard overlap example web GUI</name>
-    <description>This is the GUI part of two OSGi Declarative Services (DS) servlets with overlapping paths.</description>
+    <name>The GUI of the Jersey in Karaf demo</name>
+    <description>This is a DS component that plugs a react.js application that into the Web Whiteboard Extender.</description>
 
     <dependencies>
     </dependencies>

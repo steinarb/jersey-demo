@@ -9,17 +9,17 @@ This is a small apache karaf demo application that demonstrates how to use Jerse
 
 *** SonarCloud
 
-[[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo&metric=ncloc#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo&metric=bugs#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajersey-demo&metric=coverage#.svg]]
+[[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf&metric=ncloc#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf&metric=bugs#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos.jerseyinkaraf%3Ajerseyinkaraf&metric=coverage#.svg]]
 
 
 ** The structure of the Demo
 
 The demo consists of the following maven artifacts:
- 1. jerseyinkaraf.servicedef which is an OSGi bundle containing interfaces and beans defining the available OSGi services
- 2. jerseinkaraf.services which is an OSGi bundle containing implementations of the services
- 3. jerseyinkaraf.webapi which is an OSGi bundle that defines a REST API that plugs into the Web Whiteboard Extender and exposes the OSGi services
- 4. jerseyikaraf.webgui which is an OSGi bundle that exposes a small react.js application that plugs into the Web Whiteboard Extender
- 5. karaf is a karaf feature repository that can be used to load the web application in karaf
+ 1. jerseyinkaraf The top project which in addition to containing common configuration, and the list of modules, also creates a karaf feature repository containing the features of all bundles created in the modules, and attaches the karaf feature repository to the maven artifact
+ 2. jerseyinkaraf.servicedef which is an OSGi bundle containing interfaces and beans defining the available OSGi services
+ 3. jerseinkaraf.services which is an OSGi bundle containing implementations of the services
+ 4. jerseyinkaraf.webapi which is an OSGi bundle that defines a REST API that plugs into the Web Whiteboard Extender and exposes the OSGi services
+ 5. jerseyinkaraf.webgui which is an OSGi bundle that exposes a HTML and JavaScript application that plugs into the Web Whiteboard Extender
 
 ** How to install
 
@@ -27,9 +27,9 @@ This is how to build and install the servlet:
  1. First [[https://karaf.apache.org/manual/latest/quick-start.html#_quick_start][download and install apache karaf]]
  2. In the apache karaf command line, install the features that pulls in the servlets with their dependencies
     #+BEGIN_EXAMPLE
-      feature:repo-add mvn:no.priv.bang.demos.jerseyinkaraf/jersey-demo/LATEST/xml/features
-      feature:install webapi
-      feature:install webgui
+      feature:repo-add mvn:no.priv.bang.demos.jerseyinkaraf/jerseyinkaraf/LATEST/xml/features
+      feature:install jerseyinkaraf.webapi
+      feature:install jerseyinkaraf.webgui
     #+END_EXAMPLE
  3. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/overlaptest for a karaf server started locally, with default settings
 

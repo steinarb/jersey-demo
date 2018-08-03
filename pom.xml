@@ -14,13 +14,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>no.priv.bang.demos.whiteboardwebapi</groupId>
-    <artifactId>whiteboard-web-and-api-karaf-demo</artifactId>
+    <groupId>no.priv.bang.demos.jerseyinkaraf</groupId>
+    <artifactId>jerseyinkaraf</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Whiteboard web GUI and REST service example</name>
-    <description>Two OSGi Declarative Services (DS) of servlets with overlapping paths.</description>
+    <name>Jersey in Karaf demo</name>
+    <description>A demonstration of how to use Jersey to provide a REST API in Karaf, and injecting OSGi services into the Jersey resources.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,11 +33,14 @@
         <pax.web.version>6.0.3</pax.web.version>
         <osgi-service-adaptors.version>1.0.0</osgi-service-adaptors.version>
         <jackson.version>2.8.7</jackson.version>
+        <jersey.version>2.27</jersey.version>
     </properties>
 
     <modules>
-        <module>webgui</module>
-        <module>webapi</module>
+        <module>jerseyinkaraf.servicedef</module>
+        <module>jerseyinkaraf.services</module>
+        <module>jerseyinkaraf.webgui</module>
+        <module>jerseyinkaraf.webapi</module>
     </modules>
 
     <dependencies>
@@ -115,6 +118,21 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.inject</groupId>
+                <artifactId>jersey-hk2</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-json-jackson</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -128,7 +146,6 @@
                     <extensions>true</extensions>
                     <configuration>
                         <startLevel>80</startLevel>
-                        <includeTransitiveDependency>false</includeTransitiveDependency>
                         <aggregateFeatures>false</aggregateFeatures>
                         <includeProjectArtifact>true</includeProjectArtifact>
                         <primaryFeatureName>${karaf-feature-name}</primaryFeatureName>
@@ -342,7 +359,7 @@
         </repository>
     </distributionManagement>
 
-    <url>http://github.com/steinarb/whiteboard-web-and-api-karaf-demo/</url>
+    <url>http://github.com/steinarb/jersey-demo/</url>
 
     <profiles>
         <profile>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.whiteboardwebapi.webgui;
+package no.priv.bang.demos.jerseyinkaraf.webgui;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -27,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 
-import no.priv.bang.demos.whiteboardwebapi.webgui.CounterDisplay;
-import no.priv.bang.demos.whiteboardwebapi.webgui.mocks.MockHttpServletResponse;
-import no.priv.bang.demos.whiteboardwebapi.webgui.mocks.MockLogService;
+import no.priv.bang.demos.jerseyinkaraf.webgui.CounterDisplay;
+import no.priv.bang.demos.jerseyinkaraf.webgui.mocks.MockHttpServletResponse;
+import no.priv.bang.demos.jerseyinkaraf.webgui.mocks.MockLogService;
 
 public class CounterDisplayTest {
 
@@ -38,7 +38,7 @@ public class CounterDisplayTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/overlap/");
+        when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/");
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
 
@@ -60,7 +60,7 @@ public class CounterDisplayTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/overlap/");
+        when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/");
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
         ServletOutputStream outputstream = mock(ServletOutputStream.class);
@@ -84,7 +84,7 @@ public class CounterDisplayTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/overlap/");
+        when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/notafileinservlet");
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
         ServletOutputStream outputstream = mock(ServletOutputStream.class);
@@ -108,7 +108,7 @@ public class CounterDisplayTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
-        when(request.getRequestURI()).thenReturn("http://localhost:8181/overlap");
+        when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf");
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
         ServletOutputStream outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());

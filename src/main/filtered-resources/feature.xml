@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="webapi">
-    <repository>mvn:no.priv.bang.demos.whiteboardwebapi/webapi/${project.version}/xml/features</repository>
-    <repository>mvn:no.priv.bang.demos.whiteboardwebapi/webgui/${project.version}/xml/features</repository>
+    <repository>mvn:no.priv.bang.demos.jerseyinkaraf/jerseyinkaraf.servicedef/${project.version}/xml/features</repository>
+    <repository>mvn:no.priv.bang.demos.jerseyinkaraf/jerseyinkaraf.services/${project.version}/xml/features</repository>
+    <repository>mvn:no.priv.bang.demos.jerseyinkaraf/jerseyinkaraf.webapi/${project.version}/xml/features</repository>
+    <repository>mvn:no.priv.bang.demos.jerseyinkaraf/jerseyinkaraf.webgui/${project.version}/xml/features</repository>
 </features>

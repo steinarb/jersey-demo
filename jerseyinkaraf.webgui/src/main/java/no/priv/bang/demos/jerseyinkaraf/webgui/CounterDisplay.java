@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.whiteboardwebapi.webgui;
+package no.priv.bang.demos.jerseyinkaraf.webgui;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +30,7 @@ import org.osgi.service.log.LogService;
 
 import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
 
-@Component(service={Servlet.class}, property={"alias=/overlap"} )
+@Component(service={Servlet.class}, property={"alias=/jerseyinkaraf"} )
 public class CounterDisplay extends HttpServlet {
     private static final long serialVersionUID = 8151853019014154334L;
     private final LogServiceAdapter logservice = new LogServiceAdapter();
