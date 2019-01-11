@@ -25,13 +25,19 @@ The demo consists of the following maven artifacts:
 
 This is how to build and install the servlet:
  1. First [[https://karaf.apache.org/manual/latest/quick-start.html#_quick_start][download and install apache karaf]]
- 2. In the apache karaf command line, install the features that pulls in the servlets with their dependencies
+ 2. Clone and build jersey-demo into the local maven repository (aka. the "maven local cache"):
+    #+BEGIN_EXAMPLE
+      git clone https://github.com/steinarb/jersey-demo.git
+      cd jersey-demo
+      mvn clean install
+    #+END_EXAMPLE
+ 3. In the apache karaf command line, install the features that pulls in the servlets with their dependencies
     #+BEGIN_EXAMPLE
       feature:repo-add mvn:no.priv.bang.demos.jerseyinkaraf/jerseyinkaraf/LATEST/xml/features
       feature:install jerseyinkaraf.webapi
       feature:install jerseyinkaraf.webgui
     #+END_EXAMPLE
- 3. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/overlaptest for a karaf server started locally, with default settings
+ 4. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/overlaptest for a karaf server started locally, with default settings
 
 ** To uninstall the counter servlet from karaf
 
