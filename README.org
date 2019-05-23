@@ -37,7 +37,7 @@ This is how to build and install the servlet:
       feature:install jerseyinkaraf.webapi
       feature:install jerseyinkaraf.webgui
     #+END_EXAMPLE
- 4. After this, the servlet will be listening for POST requests, at the local path "/overlaptest/api/testservice" on the karaf web server, e.g. http://localhost:8181/overlaptest for a karaf server started locally, with default settings
+ 4. After this, the servlet will be listening for POST requests, at the local path "/jerseyinkaraf/api/testservice" on the karaf web server, e.g. http://localhost:8181/jerseyinkaraf for a karaf server started locally, with default settings
 
 ** To uninstall the counter servlet from karaf
 
