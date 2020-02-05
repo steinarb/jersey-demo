@@ -35,6 +35,7 @@
         <jackson.version>2.9.10</jackson.version>
         <jackson.databind.version>2.9.10.1</jackson.databind.version>
         <jersey.version>2.27</jersey.version>
+        <jersey.karaf.feateure.version>1.4.0</jersey.karaf.feateure.version>
     </properties>
 
     <modules>
