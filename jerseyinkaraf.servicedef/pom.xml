@@ -21,7 +21,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Definitions of OSGi serviced used in the Jersey in Karaf demo</name>
+    <name>Definitions of OSGi service used in the Jersey in Karaf demo</name>
     <description>This is an OSGi bundle defining beans and interfaces for OSGI services.</description>
 
     <dependencies>
