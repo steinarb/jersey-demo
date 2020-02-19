@@ -16,52 +16,25 @@
 package no.priv.bang.demos.jerseyinkaraf.webapi;
 
 import javax.servlet.Servlet;
-import javax.servlet.ServletException;
-import org.glassfish.jersey.internal.inject.AbstractBinder;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.ServerProperties;
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.glassfish.jersey.servlet.WebConfig;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.osgi.service.log.LogService;
 
 import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
-import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
+import no.priv.bang.servlet.jersey.JerseyServlet;
 
-@Component(
-    service=Servlet.class,
-    property={"alias=/jerseyinkaraf/api",
-              HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX+ServerProperties.PROVIDER_PACKAGES+"=no.priv.bang.demos.jerseyinkaraf.webapi.resources"
-    } )
-public class CounterServiceServlet extends ServletContainer {
+@Component(service=Servlet.class, property={"alias=/jerseyinkaraf/api"})
+public class CounterServiceServlet extends JerseyServlet {
     private static final long serialVersionUID = 1L;
-    private Counter counter = null; // NOSONAR This is an injected service, in practice a constant
-    private final LogServiceAdapter logservice = new LogServiceAdapter();
 
     @Reference
     public void setCounter(Counter counter) {
-        this.counter = counter;
+        addInjectedOsgiServices(Counter.class, counter);
     }
 
     @Reference
     public void setLogservice(LogService logservice) {
-        this.logservice.setLogService(logservice);
+        super.setLogService(logservice);
     }
-
-    @Override
-    protected void init(WebConfig webConfig) throws ServletException {
-        super.init(webConfig);
-        ResourceConfig copyOfExistingConfig = new ResourceConfig(getConfiguration());
-        copyOfExistingConfig.register(new AbstractBinder() {
-                @Override
-                protected void configure() {
-                    bind(logservice).to(LogService.class);
-                    bind(counter).to(Counter.class);
-                }
-            });
-        reload(copyOfExistingConfig);
-    }
-
 }

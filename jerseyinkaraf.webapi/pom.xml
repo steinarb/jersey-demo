@@ -37,6 +37,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>no.priv.bang.servlet</groupId>
+            <artifactId>servlet.jersey</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
         </dependency>
