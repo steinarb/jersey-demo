@@ -30,7 +30,7 @@ public class CounterServiceServlet extends JerseyServlet {
 
     @Reference
     public void setCounter(Counter counter) {
-        addInjectedOsgiServices(Counter.class, counter);
+        addInjectedOsgiService(Counter.class, counter);
     }
 
     @Reference
