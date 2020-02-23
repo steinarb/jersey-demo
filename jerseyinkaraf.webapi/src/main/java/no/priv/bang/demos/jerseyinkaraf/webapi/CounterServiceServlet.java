@@ -33,8 +33,9 @@ public class CounterServiceServlet extends JerseyServlet {
         addInjectedOsgiService(Counter.class, counter);
     }
 
+    @Override
     @Reference
-    public void setLogservice(LogService logservice) {
+    public void setLogService(LogService logservice) {
         super.setLogService(logservice);
     }
 }

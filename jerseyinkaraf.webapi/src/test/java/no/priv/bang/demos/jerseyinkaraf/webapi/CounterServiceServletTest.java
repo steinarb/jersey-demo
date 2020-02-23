@@ -61,7 +61,7 @@ public class CounterServiceServletTest {
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
 
         CounterServiceServlet servlet = new CounterServiceServlet();
-        servlet.setLogservice(logservice);
+        servlet.setLogService(logservice);
         Counter counterService = mock(Counter.class);
         when(counterService.currentValue()).thenReturn(new Count());
         servlet.setCounter(counterService);
@@ -93,7 +93,7 @@ public class CounterServiceServletTest {
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
 
         CounterServiceServlet servlet = new CounterServiceServlet();
-        servlet.setLogservice(logservice);
+        servlet.setLogService(logservice);
         Counter counterService = new CounterService();
         servlet.setCounter(counterService);
 
@@ -137,7 +137,7 @@ public class CounterServiceServletTest {
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
 
         CounterServiceServlet servlet = new CounterServiceServlet();
-        servlet.setLogservice(logservice);
+        servlet.setLogService(logservice);
         // Create a mock Counter service that causes the internal server error
         Counter counterService = mock(Counter.class);
         InternalServerErrorException exception = new InternalServerErrorException();
