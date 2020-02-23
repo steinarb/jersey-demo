@@ -21,7 +21,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Implementation of OSGi serviced used in the Jersey in Karaf demo</name>
+    <name>Service implementations of the Jersey in Karaf demo</name>
     <description>This is an OSGi bundle containing DS components implementing OSGi services.</description>
 
     <dependencies>
