@@ -24,6 +24,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <karaf-feature-name>${project.artifactId}</karaf-feature-name>
         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
         <maven.bundle.plugin.version>4.2.0</maven.bundle.plugin.version>
@@ -44,6 +45,7 @@
         <module>jerseyinkaraf.services</module>
         <module>jerseyinkaraf.webgui</module>
         <module>jerseyinkaraf.webapi</module>
+        <module>jacoco-coverage-report</module>
     </modules>
 
     <dependencies>
@@ -234,6 +236,16 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
