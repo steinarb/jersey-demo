@@ -75,7 +75,7 @@ public class CounterServiceServletTest {
         assertEquals(200, response.getStatus());
         assertEquals("application/json", response.getContentType());
         ByteArrayOutputStream responseBody = response.getOutput();
-        assertThat(response.getOutput().size()).isGreaterThan(0);
+        assertThat(response.getOutput().size()).isPositive();
         Count counter = mapper.readValue(responseBody.toByteArray(), Count.class);
         assertEquals(0, counter.getCount());
     }
@@ -119,7 +119,7 @@ public class CounterServiceServletTest {
         assertEquals("application/json", response.getContentType());
         assertEquals(200, response.getStatus());
         ByteArrayOutputStream responseBody = response.getOutput();
-        assertThat(response.getOutput().size()).isGreaterThan(0);
+        assertThat(response.getOutput().size()).isPositive();
         Count counter = mapper.readValue(responseBody.toByteArray(), Count.class);
         assertEquals(2, counter.getCount());
     }
