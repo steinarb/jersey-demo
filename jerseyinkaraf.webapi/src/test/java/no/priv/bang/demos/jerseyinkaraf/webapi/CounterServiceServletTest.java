@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package no.priv.bang.demos.jerseyinkaraf.webapi;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
@@ -157,7 +156,7 @@ public class CounterServiceServletTest {
     private ServletConfig createServletConfigWithApplicationAndPackagenameForJerseyResources() {
         ServletConfig config = mock(ServletConfig.class);
         when(config.getInitParameterNames()).thenReturn(Collections.enumeration(Arrays.asList(ServerProperties.PROVIDER_PACKAGES)));
-        when(config.getInitParameter(eq(ServerProperties.PROVIDER_PACKAGES))).thenReturn("no.priv.bang.demos.jerseyinkaraf.webapi.resources");
+        when(config.getInitParameter(ServerProperties.PROVIDER_PACKAGES)).thenReturn("no.priv.bang.demos.jerseyinkaraf.webapi.resources");
         ServletContext servletContext = mock(ServletContext.class);
         when(config.getServletContext()).thenReturn(servletContext);
         when(servletContext.getAttributeNames()).thenReturn(Collections.emptyEnumeration());
