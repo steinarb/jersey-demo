@@ -1,7 +1,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Demo of main GUI with REST API</title>
-        <script type="">
+        <script type="text/javascript">
+        function init() {
+        	var xhttp = new XMLHttpRequest();
+        	xhttp.open("GET", "/jerseyinkaraf/api/counter", false);
+            xhttp.send(null);
+            var response = JSON.parse(xhttp.responseText);
+            console.log("init response.value: " + JSON.stringify(response));
+            document.getElementById('counter').value = response.count;
+        }
+        window.onload = init;
+
         function incrementCounter() {
         	var xhttp = new XMLHttpRequest();
         	xhttp.open("POST", "/jerseyinkaraf/api/counter", false);
