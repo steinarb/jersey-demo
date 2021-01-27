@@ -318,10 +318,17 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                        <version>2.3.3</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <coberturaReports>
-                        <coberturaReport>${basedir}/target/coverage.xml</coberturaReport>
-                    </coberturaReports>
+                    <jacocoReports>
+                        <jacocoReport>${project.basedir}/jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</jacocoReport>
+                    </jacocoReports>
                 </configuration>
             </plugin>
             <plugin>
