@@ -27,8 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
+import com.mockrunner.mock.web.MockHttpServletResponse;
+
 import no.priv.bang.demos.jerseyinkaraf.webgui.CounterDisplay;
-import no.priv.bang.demos.jerseyinkaraf.webgui.mocks.MockHttpServletResponse;
 import no.priv.bang.demos.jerseyinkaraf.webgui.mocks.MockLogService;
 
 class CounterDisplayTest {
@@ -40,7 +41,7 @@ class CounterDisplayTest {
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
         CounterDisplay servlet = new CounterDisplay();
         servlet.setLogservice(logservice);
@@ -51,7 +52,7 @@ class CounterDisplayTest {
         SoftAssertions expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getContentType()).isEqualTo("text/html");
         expectedServletOutput.assertThat(response.getStatus()).isEqualTo(200);
-        expectedServletOutput.assertThat(response.getOutput().size()).isGreaterThan(0);
+        expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isNotEmpty();
         expectedServletOutput.assertAll();
     }
 
@@ -62,7 +63,7 @@ class CounterDisplayTest {
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = spy(new MockHttpServletResponse());
         ServletOutputStream outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());
         when(response.getOutputStream()).thenReturn(outputstream);
@@ -75,7 +76,7 @@ class CounterDisplayTest {
         // Verify that the response from the servlet is as expected
         SoftAssertions expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getStatus()).isEqualTo(500);
-        expectedServletOutput.assertThat(response.getOutput().size()).isEqualTo(0);
+        expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isEmpty();
         expectedServletOutput.assertAll();
     }
 
@@ -86,7 +87,7 @@ class CounterDisplayTest {
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/notafileinservlet");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = spy(new MockHttpServletResponse());
         ServletOutputStream outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());
         when(response.getOutputStream()).thenReturn(outputstream);
@@ -98,8 +99,8 @@ class CounterDisplayTest {
 
         // Verify that the response from the servlet is as expected
         SoftAssertions expectedServletOutput = new SoftAssertions();
-        expectedServletOutput.assertThat(response.getStatus()).isEqualTo(404);
-        expectedServletOutput.assertThat(response.getOutput().size()).isEqualTo(0);
+        expectedServletOutput.assertThat(response.getErrorCode()).isEqualTo(404);
+        expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isEmpty();
         expectedServletOutput.assertAll();
     }
 
@@ -109,7 +110,7 @@ class CounterDisplayTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = spy(new MockHttpServletResponse());
         ServletOutputStream outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());
         when(response.getOutputStream()).thenReturn(outputstream);
@@ -122,7 +123,7 @@ class CounterDisplayTest {
         // Verify that the response from the servlet is as expected
         SoftAssertions expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getStatus()).isEqualTo(302);
-        expectedServletOutput.assertThat(response.getOutput().size()).isEqualTo(0);
+        expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isEmpty();
         expectedServletOutput.assertAll();
     }
 

@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -36,12 +35,12 @@ import org.glassfish.jersey.server.ServerProperties;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mockrunner.mock.web.MockHttpServletResponse;
 
 import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
 import no.priv.bang.demos.jerseyinkaraf.servicedef.beans.Count;
 import no.priv.bang.demos.jerseyinkaraf.services.CounterService;
 import no.priv.bang.demos.jerseyinkaraf.webapi.CounterServiceServlet;
-import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockHttpServletResponse;
 import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockLogService;
 
 class CounterServiceServletTest {
@@ -58,7 +57,7 @@ class CounterServiceServletTest {
         when(request.getContextPath()).thenReturn("");
         when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
         CounterServiceServlet servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
@@ -74,9 +73,9 @@ class CounterServiceServletTest {
 
         assertEquals(200, response.getStatus());
         assertEquals("application/json", response.getContentType());
-        ByteArrayOutputStream responseBody = response.getOutput();
-        assertThat(response.getOutput().size()).isPositive();
-        Count counter = mapper.readValue(responseBody.toByteArray(), Count.class);
+        byte[] responseBody = response.getOutputStreamBinaryContent();
+        assertThat(responseBody).isNotEmpty();
+        Count counter = mapper.readValue(responseBody, Count.class);
         assertEquals(0, counter.getCount());
     }
 
@@ -90,7 +89,7 @@ class CounterServiceServletTest {
         when(request.getContextPath()).thenReturn("");
         when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
         CounterServiceServlet servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
@@ -118,9 +117,9 @@ class CounterServiceServletTest {
 
         assertEquals("application/json", response.getContentType());
         assertEquals(200, response.getStatus());
-        ByteArrayOutputStream responseBody = response.getOutput();
-        assertThat(response.getOutput().size()).isPositive();
-        Count counter = mapper.readValue(responseBody.toByteArray(), Count.class);
+        byte[] responseBody = response.getOutputStreamBinaryContent();
+        assertThat(responseBody).isNotEmpty();
+        Count counter = mapper.readValue(responseBody, Count.class);
         assertEquals(2, counter.getCount());
     }
 
@@ -134,7 +133,7 @@ class CounterServiceServletTest {
         when(request.getContextPath()).thenReturn("");
         when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
         CounterServiceServlet servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
@@ -151,7 +150,7 @@ class CounterServiceServletTest {
         servlet.service(request, response);
 
         assertEquals(500, response.getStatus());
-        assertEquals(0, response.getOutput().size());
+        assertEquals(0, response.getOutputStreamBinaryContent().length);
     }
 
     private ServletConfig createServletConfigWithApplicationAndPackagenameForJerseyResources() {
