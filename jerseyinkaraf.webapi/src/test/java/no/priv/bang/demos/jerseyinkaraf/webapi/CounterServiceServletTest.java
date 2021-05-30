@@ -15,7 +15,7 @@
  */
 package no.priv.bang.demos.jerseyinkaraf.webapi;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -33,7 +33,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.InternalServerErrorException;
 
 import org.glassfish.jersey.server.ServerProperties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
@@ -43,11 +44,11 @@ import no.priv.bang.demos.jerseyinkaraf.webapi.CounterServiceServlet;
 import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockHttpServletResponse;
 import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockLogService;
 
-public class CounterServiceServletTest {
+class CounterServiceServletTest {
     static final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void testDoGet() throws ServletException, IOException {
+    void testDoGet() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getProtocol()).thenReturn("HTTP/1.1");
@@ -80,7 +81,7 @@ public class CounterServiceServletTest {
     }
 
     @Test
-    public void testDoGetAfterCounterIncrement() throws ServletException, IOException {
+    void testDoGetAfterCounterIncrement() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
@@ -124,7 +125,7 @@ public class CounterServiceServletTest {
     }
 
     @Test
-    public void testDoGetWithError() throws ServletException, IOException {
+    void testDoGetWithError() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");

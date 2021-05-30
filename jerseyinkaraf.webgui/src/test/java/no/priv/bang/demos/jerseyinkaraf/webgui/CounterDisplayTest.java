@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package no.priv.bang.demos.jerseyinkaraf.webgui;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
@@ -25,16 +25,16 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import no.priv.bang.demos.jerseyinkaraf.webgui.CounterDisplay;
 import no.priv.bang.demos.jerseyinkaraf.webgui.mocks.MockHttpServletResponse;
 import no.priv.bang.demos.jerseyinkaraf.webgui.mocks.MockLogService;
 
-public class CounterDisplayTest {
+class CounterDisplayTest {
 
     @Test
-    public void testDoGet() throws ServletException, IOException {
+    void testDoGet() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
@@ -56,7 +56,7 @@ public class CounterDisplayTest {
     }
 
     @Test
-    public void testDoGetWithError() throws ServletException, IOException {
+    void testDoGetWithError() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
@@ -80,7 +80,7 @@ public class CounterDisplayTest {
     }
 
     @Test
-    public void testDoGetWithNotFound() throws ServletException, IOException {
+    void testDoGetWithNotFound() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
@@ -104,7 +104,7 @@ public class CounterDisplayTest {
     }
 
     @Test
-    public void testDoGetWithRedirect() throws ServletException, IOException {
+    void testDoGetWithRedirect() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
@@ -127,7 +127,7 @@ public class CounterDisplayTest {
     }
 
     @Test
-    public void testGuessContentTypeFromResourceName() {
+    void testGuessContentTypeFromResourceName() {
         CounterDisplay servlet = new CounterDisplay();
         assertEquals("text/html", servlet.guessContentTypeFromResourceName("index.html"));
         assertEquals("application/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));

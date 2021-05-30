@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,18 @@
  */
 package no.priv.bang.demos.jerseyinkaraf.webapi.resources;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
 import no.priv.bang.demos.jerseyinkaraf.servicedef.beans.Count;
 
-public class CounterResourceTest {
+class CounterResourceTest {
 
     @Test
-    public void testGetCurrentValue() {
+    void testGetCurrentValue() {
         CounterResource resource = new CounterResource();
 
         // Mock a Counter OSGi service and simulate injection
@@ -39,7 +39,7 @@ public class CounterResourceTest {
     }
 
     @Test
-    public void testGetIncrementedValue() {
+    void testGetIncrementedValue() {
         CounterResource resource = new CounterResource();
 
         // Mock a Counter OSGi service and simulate injection

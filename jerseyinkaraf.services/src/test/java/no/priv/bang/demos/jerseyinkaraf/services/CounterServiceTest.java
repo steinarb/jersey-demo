@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,18 @@
  */
 package no.priv.bang.demos.jerseyinkaraf.services;
 
-import static org.junit.Assert.*;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
 import no.priv.bang.demos.jerseyinkaraf.servicedef.beans.Count;
 
-public class CounterServiceTest {
+class CounterServiceTest {
 
     @Test
-    public void testCounterService() {
+    void testCounterService() {
         Counter service = new CounterService();
 
         Count initialValue = service.currentValue();
