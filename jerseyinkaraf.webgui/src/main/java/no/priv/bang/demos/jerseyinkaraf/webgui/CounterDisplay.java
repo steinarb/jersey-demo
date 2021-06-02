@@ -15,6 +15,8 @@
  */
 package no.priv.bang.demos.jerseyinkaraf.webgui;
 
+import static org.osgi.service.http.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
@@ -26,11 +28,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardContextSelect;
+import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPattern;
 import org.osgi.service.log.LogService;
 
 import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
-@Component(service={Servlet.class}, property={"alias=/jerseyinkaraf"} )
+@Component(service={Servlet.class})
+@HttpWhiteboardContextSelect("(" + HTTP_WHITEBOARD_CONTEXT_NAME + "=jerseyinkaraf)")
+@HttpWhiteboardServletPattern("/*")
 public class CounterDisplay extends HttpServlet {
     private static final long serialVersionUID = 8151853019014154334L;
     private final LoggerAdapter logger = new LoggerAdapter(getClass());
