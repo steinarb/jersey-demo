@@ -48,8 +48,7 @@
         </dependency>
         <dependency>
             <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>logservice</artifactId>
-            <version>${osgi-service-adaptors.version}</version>
+            <artifactId>adapters.logservice</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
