@@ -41,7 +41,7 @@ import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
 import no.priv.bang.demos.jerseyinkaraf.servicedef.beans.Count;
 import no.priv.bang.demos.jerseyinkaraf.services.CounterService;
 import no.priv.bang.demos.jerseyinkaraf.webapi.CounterServiceServlet;
-import no.priv.bang.demos.jerseyinkaraf.webapi.mocks.MockLogService;
+import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 
 class CounterServiceServletTest {
     static final ObjectMapper mapper = new ObjectMapper();
