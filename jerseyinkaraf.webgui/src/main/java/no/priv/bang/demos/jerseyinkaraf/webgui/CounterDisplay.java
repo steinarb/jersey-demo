@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,16 +28,16 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
-import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
+import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
 @Component(service={Servlet.class}, property={"alias=/jerseyinkaraf"} )
 public class CounterDisplay extends HttpServlet {
     private static final long serialVersionUID = 8151853019014154334L;
-    private final LogServiceAdapter logservice = new LogServiceAdapter();
+    private final LoggerAdapter logger = new LoggerAdapter(getClass());
 
     @Reference
     public void setLogservice(LogService logservice) {
-        this.logservice.setLogService(logservice);
+        this.logger.setLogService(logservice);
     }
 
 
@@ -63,12 +63,12 @@ public class CounterDisplay extends HttpServlet {
                     }
 
                     String message = String.format("Resource \"%s\" not found on the classpath", resource);
-                    logservice.log(LogService.LOG_ERROR, message);
+                    logger.error(message);
                     response.sendError(404, message);
                 }
             }
         } catch (IOException e) {
-            logservice.log(LogService.LOG_ERROR, "Frontend servlet caught exception ", e);
+            logger.error("Frontend servlet caught exception ", e);
             response.setStatus(500); // Report internal server error
         }
     }
