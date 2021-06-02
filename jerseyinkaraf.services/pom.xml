@@ -36,6 +36,13 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>no.priv.bang.demos.jerseyinkaraf</groupId>
+            <artifactId>jerseyinkaraf.servicedef</artifactId>
+            <version>${project.version}</version>
+            <type>xml</type>
+            <classifier>features</classifier>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
