@@ -40,6 +40,7 @@
     <modules>
         <module>jerseyinkaraf.servicedef</module>
         <module>jerseyinkaraf.services</module>
+        <module>jerseyinkaraf.webcontext</module>
         <module>jerseyinkaraf.webgui</module>
         <module>jerseyinkaraf.webapi</module>
         <module>jacoco-coverage-report</module>

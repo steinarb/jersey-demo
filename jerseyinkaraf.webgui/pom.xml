@@ -26,6 +26,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>no.priv.bang.demos.jerseyinkaraf</groupId>
+            <artifactId>jerseyinkaraf.webcontext</artifactId>
+            <version>${project.version}</version>
+            <type>xml</type>
+            <classifier>features</classifier>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
             <scope>provided</scope>
