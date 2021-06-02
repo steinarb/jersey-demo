@@ -26,6 +26,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>no.priv.bang.demos.jerseyinkaraf</groupId>
             <artifactId>jerseyinkaraf.servicedef</artifactId>
             <version>${project.version}</version>
