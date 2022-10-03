@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2022 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 
 import com.mockrunner.mock.web.MockHttpServletResponse;
 
-import no.priv.bang.demos.jerseyinkaraf.webgui.CounterDisplay;
 import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 
 class CounterDisplayTest {
@@ -131,7 +130,7 @@ class CounterDisplayTest {
     void testGuessContentTypeFromResourceName() {
         CounterDisplay servlet = new CounterDisplay();
         assertEquals("text/html", servlet.guessContentTypeFromResourceName("index.html"));
-        assertEquals("application/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
+        assertEquals("text/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
         assertEquals("text/css", servlet.guessContentTypeFromResourceName("index.css"));
     }
 }
