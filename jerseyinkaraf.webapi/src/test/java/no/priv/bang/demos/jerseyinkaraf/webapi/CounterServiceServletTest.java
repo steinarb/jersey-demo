@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2023 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,6 @@ import com.mockrunner.mock.web.MockHttpServletResponse;
 import no.priv.bang.demos.jerseyinkaraf.servicedef.Counter;
 import no.priv.bang.demos.jerseyinkaraf.servicedef.beans.Count;
 import no.priv.bang.demos.jerseyinkaraf.services.CounterService;
-import no.priv.bang.demos.jerseyinkaraf.webapi.CounterServiceServlet;
 import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 
 class CounterServiceServletTest {
