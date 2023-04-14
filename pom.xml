@@ -133,6 +133,15 @@
                     </configuration>
                     <executions>
                         <execution>
+                            <id>manifest</id>
+                            <goals>
+                                <goal>manifest</goal>
+                            </goals>
+                            <configuration>
+                                <supportIncrementalBuild>true</supportIncrementalBuild>
+                            </configuration>
+                        </execution>
+                        <execution>
                             <id>bundle</id>
                             <goals>
                                 <goal>bundle</goal>
