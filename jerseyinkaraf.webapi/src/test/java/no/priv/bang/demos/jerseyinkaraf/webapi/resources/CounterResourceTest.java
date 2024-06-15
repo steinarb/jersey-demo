@@ -35,7 +35,7 @@ class CounterResourceTest {
         resource.counter = counter;
 
         var currentValue = resource.currentValue();
-        assertEquals(103, currentValue.getCount());
+        assertEquals(103, currentValue.count());
     }
 
     @Test
@@ -48,7 +48,7 @@ class CounterResourceTest {
         resource.counter = counter;
 
         var incrementedValue = resource.increment();
-        assertEquals(104, incrementedValue.getCount());
+        assertEquals(104, incrementedValue.count());
     }
 
 }

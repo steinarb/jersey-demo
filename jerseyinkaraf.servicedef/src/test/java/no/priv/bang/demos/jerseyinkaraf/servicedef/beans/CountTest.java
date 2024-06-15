@@ -23,11 +23,11 @@ class CountTest {
 
     @Test
     void testCreate() {
-        var countWithDefaultValue = new Count();
-        assertEquals(0, countWithDefaultValue.getCount());
+        var countWithDefaultValue = new Count(0);
+        assertEquals(0, countWithDefaultValue.count());
 
         var countWithValue = new Count(101);
-        assertEquals(101, countWithValue.getCount());
+        assertEquals(101, countWithValue.count());
     }
 
 }

@@ -61,7 +61,7 @@ class CounterServiceServletTest {
         var servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
         var counterService = mock(Counter.class);
-        when(counterService.currentValue()).thenReturn(new Count());
+        when(counterService.currentValue()).thenReturn(new Count(0));
         servlet.setCounter(counterService);
 
         // When the servlet is activated it will be plugged into the http whiteboard and configured
@@ -75,7 +75,7 @@ class CounterServiceServletTest {
         var responseBody = response.getOutputStreamBinaryContent();
         assertThat(responseBody).isNotEmpty();
         var counter = mapper.readValue(responseBody, Count.class);
-        assertEquals(0, counter.getCount());
+        assertEquals(0, counter.count());
     }
 
     @Test
@@ -119,7 +119,7 @@ class CounterServiceServletTest {
         var responseBody = response.getOutputStreamBinaryContent();
         assertThat(responseBody).isNotEmpty();
         Count counter = mapper.readValue(responseBody, Count.class);
-        assertEquals(2, counter.getCount());
+        assertEquals(2, counter.count());
     }
 
     @Test

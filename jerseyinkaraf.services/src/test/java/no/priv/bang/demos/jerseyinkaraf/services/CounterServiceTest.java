@@ -27,10 +27,10 @@ class CounterServiceTest {
         var service = new CounterService();
 
         var initialValue = service.currentValue();
-        assertEquals(0, initialValue.getCount());
+        assertEquals(0, initialValue.count());
 
         var incrementedValue = service.increment();
-        assertEquals(1, incrementedValue.getCount());
+        assertEquals(1, incrementedValue.count());
     }
 
 }

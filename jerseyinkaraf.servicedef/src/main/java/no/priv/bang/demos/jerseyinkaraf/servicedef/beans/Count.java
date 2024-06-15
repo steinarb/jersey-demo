@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,5 @@
  */
 package no.priv.bang.demos.jerseyinkaraf.servicedef.beans;
 
-public class Count {
-
-    private int count; // NOSONAR This is just a demo
-
-    public Count() {
-        this(0);
-    }
-
-    public Count(int count) {
-        this.count = count;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
+public record Count(int count) {
 }
