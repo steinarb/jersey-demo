@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,20 +35,20 @@ class CounterDisplayTest {
 
     @Test
     void testDoGet() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/");
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        var response = new MockHttpServletResponse();
 
-        CounterDisplay servlet = new CounterDisplay();
+        var servlet = new CounterDisplay();
         servlet.setLogservice(logservice);
 
         servlet.service(request, response);
 
         // Verify that the response from the servlet is as expected
-        SoftAssertions expectedServletOutput = new SoftAssertions();
+        var expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getContentType()).isEqualTo("text/html");
         expectedServletOutput.assertThat(response.getStatus()).isEqualTo(200);
         expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isNotEmpty();
@@ -57,23 +57,23 @@ class CounterDisplayTest {
 
     @Test
     void testDoGetWithError() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/");
-        MockHttpServletResponse response = spy(new MockHttpServletResponse());
-        ServletOutputStream outputstream = mock(ServletOutputStream.class);
+        var response = spy(new MockHttpServletResponse());
+        var outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());
         when(response.getOutputStream()).thenReturn(outputstream);
 
-        CounterDisplay servlet = new CounterDisplay();
+        var servlet = new CounterDisplay();
         servlet.setLogservice(logservice);
 
         servlet.service(request, response);
 
         // Verify that the response from the servlet is as expected
-        SoftAssertions expectedServletOutput = new SoftAssertions();
+        var expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getStatus()).isEqualTo(500);
         expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isEmpty();
         expectedServletOutput.assertAll();
@@ -81,23 +81,23 @@ class CounterDisplayTest {
 
     @Test
     void testDoGetWithNotFound() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf/");
         when(request.getPathInfo()).thenReturn("/notafileinservlet");
-        MockHttpServletResponse response = spy(new MockHttpServletResponse());
-        ServletOutputStream outputstream = mock(ServletOutputStream.class);
+        var response = spy(new MockHttpServletResponse());
+        var outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());
         when(response.getOutputStream()).thenReturn(outputstream);
 
-        CounterDisplay servlet = new CounterDisplay();
+        var servlet = new CounterDisplay();
         servlet.setLogservice(logservice);
 
         servlet.service(request, response);
 
         // Verify that the response from the servlet is as expected
-        SoftAssertions expectedServletOutput = new SoftAssertions();
+        var expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getErrorCode()).isEqualTo(404);
         expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isEmpty();
         expectedServletOutput.assertAll();
@@ -105,22 +105,22 @@ class CounterDisplayTest {
 
     @Test
     void testDoGetWithRedirect() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("http://localhost:8181/jerseyinkaraf");
-        MockHttpServletResponse response = spy(new MockHttpServletResponse());
-        ServletOutputStream outputstream = mock(ServletOutputStream.class);
+        var response = spy(new MockHttpServletResponse());
+        var outputstream = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(outputstream).write(anyInt());
         when(response.getOutputStream()).thenReturn(outputstream);
 
-        CounterDisplay servlet = new CounterDisplay();
+        var servlet = new CounterDisplay();
         servlet.setLogservice(logservice);
 
         servlet.service(request, response);
 
         // Verify that the response from the servlet is as expected
-        SoftAssertions expectedServletOutput = new SoftAssertions();
+        var expectedServletOutput = new SoftAssertions();
         expectedServletOutput.assertThat(response.getStatus()).isEqualTo(302);
         expectedServletOutput.assertThat(response.getOutputStreamBinaryContent()).isEmpty();
         expectedServletOutput.assertAll();
@@ -128,7 +128,7 @@ class CounterDisplayTest {
 
     @Test
     void testGuessContentTypeFromResourceName() {
-        CounterDisplay servlet = new CounterDisplay();
+        var servlet = new CounterDisplay();
         assertEquals("text/html", servlet.guessContentTypeFromResourceName("index.html"));
         assertEquals("text/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
         assertEquals("text/css", servlet.guessContentTypeFromResourceName("index.css"));

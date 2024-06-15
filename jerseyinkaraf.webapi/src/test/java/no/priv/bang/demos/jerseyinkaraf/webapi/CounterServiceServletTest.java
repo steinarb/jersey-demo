@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ class CounterServiceServletTest {
 
     @Test
     void testDoGet() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getProtocol()).thenReturn("HTTP/1.1");
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
@@ -56,58 +56,58 @@ class CounterServiceServletTest {
         when(request.getContextPath()).thenReturn("");
         when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        var response = new MockHttpServletResponse();
 
-        CounterServiceServlet servlet = new CounterServiceServlet();
+        var servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
-        Counter counterService = mock(Counter.class);
+        var counterService = mock(Counter.class);
         when(counterService.currentValue()).thenReturn(new Count());
         servlet.setCounter(counterService);
 
         // When the servlet is activated it will be plugged into the http whiteboard and configured
-        ServletConfig config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
+        var config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
         servlet.init(config);
 
         servlet.service(request, response);
 
         assertEquals(200, response.getStatus());
         assertEquals("application/json", response.getContentType());
-        byte[] responseBody = response.getOutputStreamBinaryContent();
+        var responseBody = response.getOutputStreamBinaryContent();
         assertThat(responseBody).isNotEmpty();
-        Count counter = mapper.readValue(responseBody, Count.class);
+        var counter = mapper.readValue(responseBody, Count.class);
         assertEquals(0, counter.getCount());
     }
 
     @Test
     void testDoGetAfterCounterIncrement() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
         when(request.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
         when(request.getContextPath()).thenReturn("");
         when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        var response = new MockHttpServletResponse();
 
-        CounterServiceServlet servlet = new CounterServiceServlet();
+        var servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
-        Counter counterService = new CounterService();
+        var counterService = new CounterService();
         servlet.setCounter(counterService);
 
         // When the servlet is activated it will be plugged into the http whiteboard and configured
-        ServletConfig config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
+        var config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
         servlet.init(config);
 
         // Increment the counter twice
-        HttpServletRequest postToIncrementCounter = mock(HttpServletRequest.class);
+        var postToIncrementCounter = mock(HttpServletRequest.class);
         when(postToIncrementCounter.getMethod()).thenReturn("POST");
         when(postToIncrementCounter.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
         when(postToIncrementCounter.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
         when(postToIncrementCounter.getContextPath()).thenReturn("");
         when(postToIncrementCounter.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(postToIncrementCounter.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        HttpServletResponse postResponse = mock(HttpServletResponse.class);
+        var postResponse = mock(HttpServletResponse.class);
         when(postResponse.getWriter()).thenReturn(mock(PrintWriter.class));
         servlet.service(postToIncrementCounter, postResponse);
         servlet.service(postToIncrementCounter, postResponse);
@@ -116,7 +116,7 @@ class CounterServiceServletTest {
 
         assertEquals("application/json", response.getContentType());
         assertEquals(200, response.getStatus());
-        byte[] responseBody = response.getOutputStreamBinaryContent();
+        var responseBody = response.getOutputStreamBinaryContent();
         assertThat(responseBody).isNotEmpty();
         Count counter = mapper.readValue(responseBody, Count.class);
         assertEquals(2, counter.getCount());
@@ -124,26 +124,26 @@ class CounterServiceServletTest {
 
     @Test
     void testDoGetWithError() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8181/jerseyinkaraf/api/counter"));
         when(request.getRequestURI()).thenReturn("/jerseyinkaraf/api/counter");
         when(request.getContextPath()).thenReturn("");
         when(request.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(request.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        var response = new MockHttpServletResponse();
 
-        CounterServiceServlet servlet = new CounterServiceServlet();
+        var servlet = new CounterServiceServlet();
         servlet.setLogService(logservice);
         // Create a mock Counter service that causes the internal server error
-        Counter counterService = mock(Counter.class);
-        InternalServerErrorException exception = new InternalServerErrorException();
+        var counterService = mock(Counter.class);
+        var exception = new InternalServerErrorException();
         when(counterService.currentValue()).thenThrow(exception);
         servlet.setCounter(counterService);
 
         // When the servlet is activated it will be plugged into the http whiteboard and configured
-        ServletConfig config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
+        var config = createServletConfigWithApplicationAndPackagenameForJerseyResources();
         servlet.init(config);
 
         servlet.service(request, response);
@@ -153,10 +153,10 @@ class CounterServiceServletTest {
     }
 
     private ServletConfig createServletConfigWithApplicationAndPackagenameForJerseyResources() {
-        ServletConfig config = mock(ServletConfig.class);
+        var config = mock(ServletConfig.class);
         when(config.getInitParameterNames()).thenReturn(Collections.enumeration(Arrays.asList(ServerProperties.PROVIDER_PACKAGES)));
         when(config.getInitParameter(ServerProperties.PROVIDER_PACKAGES)).thenReturn("no.priv.bang.demos.jerseyinkaraf.webapi.resources");
-        ServletContext servletContext = mock(ServletContext.class);
+        var servletContext = mock(ServletContext.class);
         when(config.getServletContext()).thenReturn(servletContext);
         when(servletContext.getAttributeNames()).thenReturn(Collections.emptyEnumeration());
         return config;

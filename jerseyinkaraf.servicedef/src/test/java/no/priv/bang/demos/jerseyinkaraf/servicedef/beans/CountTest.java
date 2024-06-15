@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ class CountTest {
 
     @Test
     void testCreate() {
-        Count countWithDefaultValue = new Count();
+        var countWithDefaultValue = new Count();
         assertEquals(0, countWithDefaultValue.getCount());
 
-        Count countWithValue = new Count(101);
+        var countWithValue = new Count(101);
         assertEquals(101, countWithValue.getCount());
     }
 

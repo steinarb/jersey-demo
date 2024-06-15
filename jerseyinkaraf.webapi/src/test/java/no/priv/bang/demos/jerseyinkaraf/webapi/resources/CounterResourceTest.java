@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,27 +27,27 @@ class CounterResourceTest {
 
     @Test
     void testGetCurrentValue() {
-        CounterResource resource = new CounterResource();
+        var resource = new CounterResource();
 
         // Mock a Counter OSGi service and simulate injection
-        Counter counter = mock(Counter.class);
+        var counter = mock(Counter.class);
         when(counter.currentValue()).thenReturn(new Count(103));
         resource.counter = counter;
 
-        Count currentValue = resource.currentValue();
+        var currentValue = resource.currentValue();
         assertEquals(103, currentValue.getCount());
     }
 
     @Test
     void testGetIncrementedValue() {
-        CounterResource resource = new CounterResource();
+        var resource = new CounterResource();
 
         // Mock a Counter OSGi service and simulate injection
-        Counter counter = mock(Counter.class);
+        var counter = mock(Counter.class);
         when(counter.increment()).thenReturn(new Count(104));
         resource.counter = counter;
 
-        Count incrementedValue = resource.increment();
+        var incrementedValue = resource.increment();
         assertEquals(104, incrementedValue.getCount());
     }
 
