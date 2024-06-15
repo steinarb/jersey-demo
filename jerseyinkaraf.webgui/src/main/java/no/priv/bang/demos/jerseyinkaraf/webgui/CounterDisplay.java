@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class CounterDisplay extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String pathInfo = request.getPathInfo();
+        var pathInfo = request.getPathInfo();
         try {
             if (pathInfo == null) {
                 // Browsers won't redirect to bundle.js if the servlet path doesn't end with a "/"
@@ -57,18 +57,18 @@ public class CounterDisplay extends HttpServlet {
                 return;
             }
 
-            String resource = findResourceFromPathInfo(pathInfo);
-            String contentType = guessContentTypeFromResourceName(resource);
+            var resource = findResourceFromPathInfo(pathInfo);
+            var contentType = guessContentTypeFromResourceName(resource);
             response.setContentType(contentType);
-            try(ServletOutputStream responseBody = response.getOutputStream()) {
-                try(InputStream resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
+            try(var responseBody = response.getOutputStream()) {
+                try(var resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
                     if (resourceFromClasspath != null) {
                         copyStream(resourceFromClasspath, responseBody);
                         response.setStatus(200);
                         return;
                     }
 
-                    String message = String.format("Resource \"%s\" not found on the classpath", resource);
+                    var message = String.format("Resource \"%s\" not found on the classpath", resource);
                     logger.error(message);
                     response.sendError(404, message);
                 }
@@ -81,12 +81,12 @@ public class CounterDisplay extends HttpServlet {
 
 
     String guessContentTypeFromResourceName(String resource) {
-        String contentType = URLConnection.guessContentTypeFromName(resource);
+        var contentType = URLConnection.guessContentTypeFromName(resource);
         if (contentType != null) {
             return contentType;
         }
 
-        String extension = resource.substring(resource.lastIndexOf('.') + 1);
+        var extension = resource.substring(resource.lastIndexOf('.') + 1);
         if ("xhtml".equals(extension)) {
             return "text/html";
         }
