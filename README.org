@@ -2,6 +2,18 @@
 
 This is a small apache karaf demo application that demonstrates how to use Jersey in Apache Karaf, and how to inject OSGi services into Jersey resources.
 
+The application is a counter where you can click a button and see a value be incremented. The click of the button goes through a REST call and the returned value is displayed.
+
+To avoid introducing confusing extra dependencies the demo is extremely primitive.
+
+The focus is on using jersey in the HTTP web whiteboard.
+
+That means there is no database stuff, just a counter value kept in memory (I have a "backend" to illustrate how an OSGi service can be injected into a jersey resource serving an HTTP path).
+
+The "frontend" is just two javascript functions called from static HTML created by print statements in the webgui servlet (again: to illustrate how a frontend calls a backend without introducing confusing details).
+
+The [[https://github.com/steinarb/sampleapp][sampleapp]] application implements a similar counter application, but with database, react frontend, users and login, and i18n support.
+
 ** Status
 
 [[https://github.com/steinarb/jersey-demo/actions/workflows/jersey-demo-maven-ci-build.yml][file:https://github.com/steinarb/jersey-demo/actions/workflows/jersey-demo-maven-ci-build.yml/badge.svg]]
