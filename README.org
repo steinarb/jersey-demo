@@ -10,7 +10,7 @@ The focus is on using jersey in the HTTP web whiteboard.
 
 That means there is no database stuff, just a counter value kept in memory (I have a "backend" to illustrate how an OSGi service can be injected into a jersey resource serving an HTTP path).
 
-The "frontend" is just two javascript functions called from static HTML created by print statements in the webgui servlet (again: to illustrate how a frontend calls a backend without introducing confusing details).
+The "frontend" is just two javascript functions called from static HTML read from a classpath resource in the webgui servlet (again: to illustrate how a frontend calls a backend without introducing confusing details).
 
 The [[https://github.com/steinarb/sampleapp][sampleapp]] application implements a similar counter application, but with database, react frontend, users and login, and i18n support.
 

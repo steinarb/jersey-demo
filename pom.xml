@@ -36,6 +36,9 @@
         <mockrunner.version>2.0.7</mockrunner.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S6813</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/jerseyinkaraf.webapi/src/main/java/**/resources/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
     </properties>
 
     <modules>
