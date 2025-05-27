@@ -25,7 +25,7 @@
     <properties>
         <karaf-feature-name>${project.artifactId}</karaf-feature-name>
         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-        <maven.bundle.plugin.version>5.1.9</maven.bundle.plugin.version>
+        <maven.bundle.plugin.version>6.0.0</maven.bundle.plugin.version>
         <karaf.version>4.4.7</karaf.version>
         <osgi-service-adaptors.version>1.2.0</osgi-service-adaptors.version>
         <jersey-feature.version>1.9.10</jersey-feature.version>
