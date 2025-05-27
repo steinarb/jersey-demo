@@ -28,7 +28,7 @@
         <maven.bundle.plugin.version>5.1.9</maven.bundle.plugin.version>
         <karaf.version>4.4.7</karaf.version>
         <osgi-service-adaptors.version>1.2.0</osgi-service-adaptors.version>
-        <jersey-feature.version>1.9.8</jersey-feature.version>
+        <jersey-feature.version>1.9.10</jersey-feature.version>
         <bang-servlet.version>1.7.0</bang-servlet.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
         <assertj.version>3.27.3</assertj.version>
