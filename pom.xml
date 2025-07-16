@@ -29,7 +29,7 @@
         <karaf.version>4.4.7</karaf.version>
         <osgi-service-adaptors.version>1.2.0</osgi-service-adaptors.version>
         <jersey-feature.version>1.9.11</jersey-feature.version>
-        <bang-servlet.version>3.0.0</bang-servlet.version>
+        <bang-servlet.version>3.0.1</bang-servlet.version>
         <junit.jupiter.version>5.13.3</junit.jupiter.version>
         <assertj.version>3.27.3</assertj.version>
         <mockito.version>5.18.0</mockito.version>
