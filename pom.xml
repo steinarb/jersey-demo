@@ -31,7 +31,7 @@
         <jersey-feature.version>1.9.11</jersey-feature.version>
         <bang-servlet.version>3.0.1</bang-servlet.version>
         <junit.jupiter.version>5.13.4</junit.jupiter.version>
-        <assertj.version>3.27.5</assertj.version>
+        <assertj.version>3.27.6</assertj.version>
         <mockito.version>5.20.0</mockito.version>
         <mockrunner.version>2.0.7</mockrunner.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
