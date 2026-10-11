@@ -1,5 +1,6 @@
+package no.priv.bang.demos.jerseyinkaraf.webgui;
 /*
- * Copyright 2018-2024 Steinar Bang
+ * Copyright 2018-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.jerseyinkaraf.webgui;
 
 import static org.osgi.service.http.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME;
 
@@ -111,7 +111,7 @@ public class CounterDisplay extends HttpServlet {
     }
 
     private void addSlashToServletPath(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(String.format("%s/", request.getServletPath()));
+        response.sendRedirect(request.getServletPath() + "/");
     }
 
     private void copyStream(InputStream input, ServletOutputStream output) throws IOException {
