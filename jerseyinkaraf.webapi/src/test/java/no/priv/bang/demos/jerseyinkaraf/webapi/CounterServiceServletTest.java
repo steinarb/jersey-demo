@@ -1,5 +1,6 @@
+package no.priv.bang.demos.jerseyinkaraf.webapi;
 /*
- * Copyright 2018-2024 Steinar Bang
+ * Copyright 2018-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.jerseyinkaraf.webapi;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
@@ -108,7 +108,8 @@ class CounterServiceServletTest {
         when(postToIncrementCounter.getServletPath()).thenReturn("/jerseyinkaraf/api");
         when(postToIncrementCounter.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
         var postResponse = mock(HttpServletResponse.class);
-        when(postResponse.getWriter()).thenReturn(mock(PrintWriter.class));
+        var mockWriter = mock(PrintWriter.class);
+        when(postResponse.getWriter()).thenReturn(mockWriter);
         servlet.service(postToIncrementCounter, postResponse);
         servlet.service(postToIncrementCounter, postResponse);
 
